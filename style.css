@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Gemstones&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.fullbg {
+    background-image: url("./Images/bg1.png");
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.c1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.c1 h1 {
+    font-size: 70px;
+    color: yellow;
+    font-weight: 600;
+    font-family: 'Rubik Gemstones', cursive;
+}
+
+.c1 p {
+    font-size: 25px;
+    color: white;
+    font-weight: 600;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.c1 .hrline1 {
+    width: 300px;
+    height: 2px;
+    background-color: #fff;
+    margin: 10px 0;
+}
+
+.c2 .card1 {
+    width: 350px;
+    height: 400px;
+    background-color: #fff;
+    border-radius: 10px;
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.c2 .card1 img {
+    width: 95%;
+    object-fit: cover;
+}
+
+.c2 .card1:hover{
+    transform: scale(1.1);
+    transition: 1s;
+    cursor: pointer;
+    box-shadow: 0px 0px 10px 2px rgb(255, 240, 29);
+
+}
+
+.c2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+
