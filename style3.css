@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Gemstones&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.fullbg {
+    background-image: url("./Images/bg1.png");
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.c1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.c1 h1 {
+    font-size: 70px;
+    color: yellow;
+    font-weight: 600;
+    font-family: 'Rubik Gemstones', cursive;
+}
+
+.c1 p{
+   background-color: white;
+    font-size: 25px;
+    color: black;
+    font-weight: 600;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.c1 button{
+    background-color: black;
+    font-size: 25px;
+    color: white;
+    padding: 5px 20px;
+    border-radius: 20px;
+    margin: 10px;
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+.c1 button:hover{
+    background-color: white;
+    color: black;
+}

@@ -9,39 +9,269 @@
     <Link rel="stylesheet" href="./style1.css">
 </head>
 
+
+
 <body class="fullbg">
     <div class="c1">
-        <h1>THE SUPERHERO QUIZ</h1> 
+        <h1>THE SUPERHERO QUIZ</h1>
     </div>
 
     <div class="c2">
-        <p class="question">
+        <p class="question" id="question">
             Q1. Which of these is not a Marvel character?
         </p>
-        <div class="wronganswer">
+        <div class="option" id="option1out" onclick="selectoption(`1`)">
             <div class="circle1"></div>
-            <p class="optionIn">This is an option</p>
+            <p class="optionIn" id="option1">This is an option</p>
         </div>
-        <div class="option">
+        <div class="option" id="option2out" onclick="selectoption(`2`)">
             <div class="circle1"></div>
-            <p class="optionIn">This is an option</p>
+            <p class="optionIn" id="option2">This is an option</p>
         </div>
-        <div class="option">
+        <div class="option" id="option3out" onclick="selectoption(`3`)">
             <div class="circle1"></div>
-            <p class="optionIn">This is an option</p>
+            <p class="optionIn" id="option3">This is an option</p>
         </div>
-        <div class="rightanswer">
+        <div class="option" id="option4out" onclick="selectoption(`4`)">
             <div class="circle1"></div>
-            <p class="optionIn">This is an option</p>
+            <p class="optionIn" id="option4">This is an option</p>
         </div>
     </div>
 
     <div class="c3">
-        <button class="btn">Next</button>
-        <button class="btn">Quit</button>
-        <button class="btn">Previous</button>
+        <button class="btn" onclick="previousquestion()">Previous</button>
+        <button class="btn" onclick="quitquiz()">Quit</button>
+        <button class="btn" onclick="nextquestion()">Next</button>
     </div>
 
+    <div class="scoreboard">
+        <p class="scoretext">Score:</p>
+        <p id="score">0/0</p>
+    </div>
 </body>
+
+<script>
+    // console.log(localStorage.getItem("quizType"));
+    // console.log(localStorage.getItem("questionNumber"));
+    // console.log(localStorage.getItem("score"));
+
+
+
+
+    const marvelquestions = [
+        {
+            question: "Who is Iron Man?",
+            options: ["Tony Stark", "Steve Rogers", "Bruce Banner", "Thor"],
+            answer: 0
+        },
+        {
+            question: "Who is Captain America?",
+            options: ["Tony Stark", "Steve Rogers", "Bruce Banner", "Thor"],
+            answer: 1
+        },
+        {
+            question: "Who is Hulk?",
+            options: ["Tony Stark", "Steve Rogers", "Bruce Banner", "Thor"],
+            answer: 2
+        },
+        {
+            question: "Who is Black Widow?",
+            options: ["Tony Stark", "Steve Rogers", "Bruce Banner", "Natasha Romanoff"],
+            answer: 3
+        }
+    ]
+
+    const dcquestions = [
+        {
+            question: "Who is Batman?",
+            options: ["Bruce Wayne", "Clark Kent", "Barry Allen", "Diana Prince"],
+            answer: 0
+        },
+        {
+            question: "Who is Superman?",
+            options: ["Bruce Wayne", "Clark Kent", "Barry Allen", "Diana Prince"],
+            answer: 1
+        },
+        {
+            question: "Who is Flash?",
+            options: ["Bruce Wayne", "Clark Kent", "Barry Allen", "Diana Prince"],
+            answer: 2
+        }
+    ]
+
+
+    const quizType = localStorage.getItem("quizType");
+    const questionNumber = localStorage.getItem("questionNumber");
+    let score = localStorage.getItem("score");
+
+
+
+
+    const quitquiz = () => {
+        localStorage.clear();
+        window.location.href = "index.html";
+    }
+    const status = () => {
+        console.log("Quiztype is", quizType);
+        console.log("Question number is", questionNumber);
+        console.log("Score is", score);
+    }
+    const setquestion = () => {
+        if (quizType == "marvel") {
+            status();
+            // console.log(document.getElementById("question").innerHTML);
+            document.getElementById("question").innerHTML = marvelquestions[questionNumber - 1].question;
+            document.getElementById("option1").innerHTML = marvelquestions[questionNumber - 1].options[0];
+            document.getElementById("option2").innerHTML = marvelquestions[questionNumber - 1].options[1];
+            document.getElementById("option3").innerHTML = marvelquestions[questionNumber - 1].options[2];
+            document.getElementById("option4").innerHTML = marvelquestions[questionNumber - 1].options[3];
+
+            if (localStorage.getItem(`answer${questionNumber}`) != null) {
+                console.log("Answer is", localStorage.getItem(`answer${questionNumber}`));
+                selectedoption(localStorage.getItem(`answer${questionNumber}`));
+            }
+        }
+        else if (quizType == "dc") {
+            status();
+            document.getElementById("question").innerHTML = dcquestions[questionNumber - 1].question;
+            document.getElementById("option1").innerHTML = dcquestions[questionNumber - 1].options[0];
+            document.getElementById("option2").innerHTML = dcquestions[questionNumber - 1].options[1];
+            document.getElementById("option3").innerHTML = dcquestions[questionNumber - 1].options[2];
+            document.getElementById("option4").innerHTML = dcquestions[questionNumber - 1].options[3];
+
+
+            if (localStorage.getItem(`answer${questionNumber}`) != null) {
+                console.log("Answer is", localStorage.getItem(`answer${questionNumber}`));
+                selectedoption(localStorage.getItem(`answer${questionNumber}`));
+            }
+        }
+        else {
+            console.log("No quiz type selected");
+            window.location.href = "index.html";
+        }
+    }
+    const nextquestion = () => {
+        if (quizType == "marvel") {
+            if (questionNumber < marvelquestions.length) {
+                localStorage.setItem("questionNumber", parseInt(questionNumber) + 1);
+                window.location.href = "index1.html";
+                setquestion();
+            }
+            else {
+                // window.alert("Quiz Completed");
+                setscore();
+                localStorage.setItem("finalscore", `${score}/${marvelquestions.length}`);
+                window.location.href = "score.html";
+            }
+        }
+        else if (quizType == "dc") {
+            if (questionNumber < dcquestions.length) {
+                localStorage.setItem("questionNumber", parseInt(questionNumber) + 1);
+                window.location.href = "index1.html";
+                setquestion();
+            }
+            else {
+                setscore();
+                localStorage.setItem("finalscore", `${score}/${dcquestions.length}`);
+                window.location.href = "score.html";
+            }
+        }
+    }
+    const previousquestion = () => {
+        if (quizType == "marvel") {
+            if (questionNumber > 1) {
+                localStorage.setItem("questionNumber", parseInt(questionNumber) - 1);
+                window.location.href = "index1.html";
+                setquestion();
+            }
+            else {
+                window.alert("Minimum Reached");
+            }
+        }
+        else if (quizType == "dc") {
+            if (questionNumber > 1) {
+                localStorage.setItem("questionNumber", parseInt(questionNumber) - 1);
+                window.location.href = "index1.html";
+                setquestion();
+            }
+            else {
+                window.alert("Minimum Reached");
+            }
+        }
+    }
+    const selectoption = (optionnumber) => {
+        // console.log("Option selected is", optionnumber);
+        const optionvalue = document.getElementById("option" + optionnumber).innerHTML;
+        // console.log("Option value is", optionvalue)
+        if (localStorage.getItem(`answer${questionNumber}`) == null) {
+            if (quizType == "marvel") {
+                if (optionvalue == marvelquestions[questionNumber - 1].options[marvelquestions[questionNumber - 1].answer]) {
+                    // window.alert("Correct");
+                    document.getElementById("option" + optionnumber + "out").classList.add("rightanswer");
+                    score++;
+                    localStorage.setItem("score", score);
+                    setscore();
+                }
+                else {
+                    document.getElementById("option" + optionnumber + "out").classList.add("wronganswer");
+                    
+                    // nextquestion();
+                }
+            }
+            else if (quizType == "dc") {
+                if (optionvalue == dcquestions[questionNumber - 1].options[dcquestions[questionNumber - 1].answer]) {
+                    // window.alert("Correct");
+                    document.getElementById("option" + optionnumber + "out").classList.add("rightanswer");
+                    score++;
+                    localStorage.setItem("score",score);
+                    setscore();
+                }
+                else {
+                    document.getElementById("option" + optionnumber + "out").classList.add("wronganswer");
+                    // window.alert("Wrong");
+                    // nextquestion();
+                }
+            }
+            localStorage.setItem(`answer${questionNumber}`, optionnumber);
+        }
+    }
+    const selectedoption = (optionnumber) => {
+        console.log("Option selected is", optionnumber);
+        const optionvalue = document.getElementById("option" + optionnumber).innerHTML;
+        console.log("Option value is", optionvalue)
+        if (quizType == "marvel") {
+            if (optionvalue == marvelquestions[questionNumber - 1].options[marvelquestions[questionNumber - 1].answer]) {
+                // window.alert("Correct");
+                document.getElementById("option" + optionnumber + "out").classList.add("rightanswer");
+            }
+            else {
+                document.getElementById("option" + optionnumber + "out").classList.add("wronganswer");
+                // nextquestion();
+            }
+        }
+        else if (quizType == "dc") {
+            if (optionvalue == dcquestions[questionNumber - 1].options[dcquestions[questionNumber - 1].answer]) {
+                // window.alert("Correct");
+                document.getElementById("option" + optionnumber + "out").classList.add("rightanswer");
+            }
+            else {
+                document.getElementById("option" + optionnumber + "out").classList.add("wronganswer");
+                // window.alert("Wrong");
+                // nextquestion();
+            }
+        }
+    }
+    const setscore = () => {
+        if (quizType == "marvel") {
+            document.getElementById("score").innerHTML = `${score}/${marvelquestions.length}`;
+        }
+        else if (quizType == "dc") {
+            document.getElementById("score").innerHTML = `${score}/${dcquestions.length}`;
+        }
+    }
+    setquestion();
+    setscore();
+  
+</script>
 
 </html>

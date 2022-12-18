@@ -9,6 +9,17 @@
     <Link rel="stylesheet" href="./style.css">
 </head>
 
+<script>
+    const openquiz = (quizname) => {
+        localStorage.clear();
+
+        localStorage.setItem("quizType", quizname);
+        localStorage.setItem("questionNumber", 1);
+        localStorage.setItem("score", 0);
+        window.location.href = "index1.html";
+    }
+</script>
+
 <body class="fullbg">
     <div class="c1">
         <h1>THE SUPERHERO QUIZ</h1>
@@ -18,12 +29,11 @@
     </div>
 
     <div class="c2">
-        <div class="card1">
-            <img src="Images/marvel1.png" alt="no image">
+        <div class="card1" >
+           <img src="Images/marvel1.png" alt="no image" onclick="openquiz('marvel')">
         </div>
         <div class="card1">
-            <img src="Images/dc1.png" alt="no image">
-
+            <img src="Images/dc1.png" alt="no image" onclick="openquiz('dc')">
         </div>
     </div>
 
